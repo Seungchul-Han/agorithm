@@ -13,7 +13,6 @@ public:
     int sum(int i) {
         int result = 0;
         while (i != 0) {
-            cout << i << ": " << tree[i] << endl;
             result += tree[i];
             i -= (i & -i);
         }
