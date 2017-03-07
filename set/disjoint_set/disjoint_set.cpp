@@ -20,25 +20,32 @@ class DisjointSet {
             return parent[u] = find(parent[u]);
         }
 
-        void merge(int u, int v) {
+        bool merge(int u, int v) {
             u = find(u);
             v = find(v);
-            if (u == v) return;
+            if (u == v) return false;
+            // low tree shoud be merged under the high tree
             if (rank[u] > rank[v]) swap(u, v);
             parent[u] = v;
+            // if heights are equal, parent tree height + 1
             if (rank[u] == rank[v]) ++rank[v];
             count[u] += count[v];
             count[v] = count[u];
+            return true;
         }
 };
 
 void print(DisjointSet& s) {
     vector<int>& p = s.parent;
     vector<int>& c = s.count;
+    vector<int>& r = s.rank;
     for (auto i : p)
         cout << i << " ";
     cout << endl;
     for (auto i : c)
+        cout << i << " ";
+    cout << endl;
+    for (auto i : r)
         cout << i << " ";
     cout << endl;
     for (int i = 0; i < p.size(); ++i)
